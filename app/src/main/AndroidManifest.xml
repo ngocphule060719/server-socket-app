@@ -16,9 +16,8 @@
         android:theme="@style/Theme.ServerSocketApp"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.ServerScreen"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.ServerSocketApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
