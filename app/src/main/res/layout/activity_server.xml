@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -32,8 +31,8 @@
             android:background="@android:drawable/edit_text"
             android:hint="Input port"
             android:inputType="number"
-            android:text="6868"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:text="6868" />
 
         <EditText
             android:id="@+id/etBacklog"
@@ -44,33 +43,33 @@
             android:autofillHints=""
             android:background="@android:drawable/edit_text"
             android:hint="Input backlog"
-            android:text="10"
             android:inputType="number"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:text="10" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnStartStopServer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Server"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:text="Start Server" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:background="@android:color/white"
-        android:padding="8dp"
-        android:layout_marginTop="16dp"
         android:clipToOutline="true"
         android:elevation="4dp"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/allMessages"
+            android:id="@+id/rvMessages"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

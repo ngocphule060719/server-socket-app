@@ -1,6 +1,5 @@
 package com.example.serversocketapp.presentation
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,47 +8,43 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.serversocketapp.R
-import com.example.serversocketapp.data.SocketServer
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ServerScreen : ComponentActivity() {
-    private lateinit var viewModel: ServerScreenViewModel
+    private val viewModel: ServerScreenViewModel by viewModel()
+
     private lateinit var serverIpAddress: TextView
     private lateinit var port: EditText
     private lateinit var backlog: EditText
     private lateinit var startStopButton: Button
-    private lateinit var allMessages: RecyclerView
+    private lateinit var rvMessages: RecyclerView
     private lateinit var messagesAdapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_server)
-        setupViewModel()
+
         setupUI()
+
         observeViewModel()
         setupClickListeners()
     }
 
-    private fun setupViewModel() {
-        val socketServer = SocketServer()
-        viewModel = ServerScreenViewModel(socketServer)
-    }
-
     private fun setupUI() {
+        messagesAdapter = MessageAdapter()
         serverIpAddress = findViewById(R.id.tvServerIp)
         port = findViewById(R.id.etPort)
         backlog = findViewById(R.id.etBacklog)
         startStopButton = findViewById(R.id.btnStartStopServer)
-        allMessages = findViewById(R.id.allMessages)
-
-        messagesAdapter = MessageAdapter()
-        allMessages.layoutManager = LinearLayoutManager(this)
-        allMessages.adapter = messagesAdapter
+        rvMessages = findViewById<RecyclerView?>(R.id.rvMessages).apply {
+            layoutManager = LinearLayoutManager(this@ServerScreen)
+            adapter = messagesAdapter
+        }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         viewModel.serverIPAddress.observe(this) { ipAddress ->
-            serverIpAddress.text = "Server IP: $ipAddress"
+            serverIpAddress.text = getString(R.string.server_ip, ipAddress)
         }
 
         viewModel.isServerRunning.observe(this) { isRunning ->
@@ -58,6 +53,7 @@ class ServerScreen : ComponentActivity() {
 
         viewModel.messages.observe(this) { messages ->
             messagesAdapter.submitList(messages)
+            rvMessages.scrollToPosition(messages.size - 1)
         }
     }
 

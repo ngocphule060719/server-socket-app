@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ServerSocketApp</string>
+    <string name="server_ip">Server IP: %1$s</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.serversocketapp.data
+package com.example.serversocketapp.di
 
 import java.io.BufferedReader
 import java.io.IOException
@@ -15,7 +15,6 @@ class SocketServer {
         serverSocket = ServerSocket(port, backlog)
     }
 
-
     fun stopServer() {
         client?.close()
         client = null
@@ -30,6 +29,7 @@ class SocketServer {
                 .find { !it.isLoopbackAddress && it.hostAddress?.contains(".") == true }
                 ?.hostAddress
         } catch (e: Exception) {
+            e.printStackTrace()
             return null
         }
     }
